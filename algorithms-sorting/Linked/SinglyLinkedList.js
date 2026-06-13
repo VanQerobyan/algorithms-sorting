@@ -250,4 +250,3 @@ console.log(list.erase(2));
 
 list.reverse();
 console.log(list.toArray());
-
