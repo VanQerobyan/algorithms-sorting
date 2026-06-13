@@ -127,6 +127,7 @@ class DynamicArray {
     values() {
         let startIndex = 0;
         return {    
+            [Symbol.iterator](){return this},
             next: () => {
                 if (startIndex < this.#size) {
                     return {value: this.#arr[startIndex++], done: false};
@@ -138,6 +139,7 @@ class DynamicArray {
     keys() {
         let startKey = 0;
         return {
+            [Symbol.iterator](){return this},
             next: () => {
                 if (startKey < this.#size) {
                        return {value: startKey++, done: false};
@@ -150,6 +152,7 @@ class DynamicArray {
         let startValue = 0;
         let startKey = 0;
         return {
+            [Symbol.iterator](){return this},
             next: () => {
                 if (startKey < this.#size) {
                      return {value: [startKey++, this.#arr[startValue++]], done: false};
@@ -228,15 +231,12 @@ class DynamicArray {
     }
 }
 
-
-
 const arr = new DynamicArray(4);
-
 
 console.log(arr.size());       
 console.log(arr.capacity());   
 console.log(arr.empty());      
-
+console.log(arr.toArray());    
 
 arr.pushBack(10);
 arr.pushBack(20);
@@ -244,28 +244,19 @@ arr.pushBack(30);
 arr.pushBack(40);
 
 console.log(arr.toArray());    
-console.log("Size " + arr.size());       
-console.log("Capacity " + arr.capacity());   
+console.log(arr.size());       
+console.log(arr.capacity());   
 
 arr.pushBack(50);
 
-console.log(arr.toArray());    
-console.log("Size: " + arr.size());       
-console.log("Capacity: "+ arr.capacity());   
+console.log(arr.toArray());   
+console.log(arr.size());      
+console.log(arr.capacity());  
 
-console.log("Pop "+ arr.popBack());
+console.log(arr.front());    
+console.log(arr.back());      
 
-console.log("Front " + arr.front());      
-console.log("Back " + arr.back());       
+console.log(arr.at(0));        
+console.log(arr.at(2));        
+console.log(arr.at(4));        
 
-console.log(arr.toArray());    
-
-
-console.log("At 0 index " + arr.at(0));        
-console.log("At 2 index " + arr.at(2));        
-console.log("At 3 index " + arr.at(3));        
-
-arr.insert(0, 5);
-arr.insert(3, 25);
-
-console.log(arr.toArray());    
