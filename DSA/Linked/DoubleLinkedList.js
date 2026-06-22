@@ -246,19 +246,13 @@ class DoubleLinkedList {
             }
         }
         
-        reverseIterator() {
-            let cur = this.#tail;
-            return {
-                 [Symbol.iterator]() {return this},
-                next: () => {
-                    if (!cur) {
-                        return {value: undefined, done: true};
-                    }
-                    let value = cur.value;
-                    cur = cur.prev;
-                    return{value: value, done: false};
-                }
+        *reverseIterator() {
+            let cur = this.head;
+            while (cur) {
+                yield cur.value;
+                cur = cur.next;
             }
+           
         }
 
         *entries() {
