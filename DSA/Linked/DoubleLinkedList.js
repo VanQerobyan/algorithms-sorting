@@ -12,7 +12,7 @@ class DoubleLinkedList {
     #tail = null;
 
     constructor(value) {
-        if (value) {
+        if (value !== undefined) {
             let newNode = new Node(value);
             this.#head = newNode;
             this.#tail = newNode;
@@ -182,7 +182,7 @@ class DoubleLinkedList {
 
     find(value) {
         if (!Number.isInteger(value)) throw new Error("Value must be an integer");
-        if (this.empty()) throw new Error("List is empty");
+        if (this.empty()) return -1;
         let cur = this.head;
         let index = 0;
         while (cur) {
@@ -194,7 +194,7 @@ class DoubleLinkedList {
     }
 
     contains(value) {
-        if (this.empty()) throw new Error("List is empty");
+        if (this.empty()) return false;
         if (this.size() === 1 && this.head.value === value) return true; 
         let cur = this.head;
 
@@ -247,10 +247,10 @@ class DoubleLinkedList {
         }
         
         *reverseIterator() {
-            let cur = this.head;
+            let cur = this.tail;
             while (cur) {
                 yield cur.value;
-                cur = cur.next;
+                cur = cur.prev;
             }
            
         }
@@ -293,4 +293,9 @@ console.log(list.at(3));
 
 list.insert(2, 15);
 
-console.log(list.toArray());  
+console.log(list.toArray()); 
+
+for (let val of list.reverseIterator()) {
+    console.log(val);
+}
+
