@@ -22,7 +22,7 @@ class Node {
 class SinglyLinkedList {
     #head;
     constructor(value) {
-        if (value) {
+        if (value !== undefined) {
             let newNode = new Node(value);
             this.#head = newNode;
             return;
@@ -181,7 +181,6 @@ class SinglyLinkedList {
         return arr;
     }
     reverse() {
-        if (this.isEmpty()) throw new Error("List is empty");
         let prev = null;
         let cur = this.#head;
         let tmp = cur;
