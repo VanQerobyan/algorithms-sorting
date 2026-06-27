@@ -95,7 +95,11 @@ class DynamicArray {
         }
     }
     shrinkToFit() {
-        if (this.#size === 0) throw new Error("size is 0");
+        if (this.#size === 0) {
+            this.#capacity = this.#size + 1;
+            this.resize(this.#capacity);
+            return;
+        }
         this.resize(this.#size);
     }
     toArray() { 
@@ -168,14 +172,23 @@ class DynamicArray {
         }
         return  newArr;
     }
-    reduce(callback, initialValue = 0) {
+    reduce(callback, initialValue) {
         if (typeof callback !== "function") throw new Error(callback + " is not a function");
         if (!Number.isInteger(initialValue)) throw new Error("Initial value must be an integer");
-        let acc = initialValue;
+        let acc = null;
+        if (initialValue !== undefined){
+            acc = initialValue;
         for (let i = 0; i < this.#size; ++i) {
             acc = callback(acc, this.#arr[i], i, this.#arr);
         }
+            return acc;
+        } else {
+            acc = this.#arr[0];
+            for (let i = 1; i < this.#size; ++i) {
+            acc = callback(acc, this.#arr[i], i, this.#arr);
+        }
         return acc;
+        }
      }
     some(callback, thisArg) {
         if (typeof callback !== "function") throw new Error(callback + " is not a function");
