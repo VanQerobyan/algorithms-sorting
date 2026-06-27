@@ -47,7 +47,7 @@ class CircularQueue {
     let rear = this.#front % this.#capacity;
     this.#front = (this.#front + 1) % this.#capacity;
     this.#size--;
-    return rear;
+    return this.#data[rear];
  }
 
  front() {
